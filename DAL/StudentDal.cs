@@ -12,7 +12,8 @@ namespace DAL
     {
         public List<StudentModel> GetList()
         {
-            string sql = "select * from student";
+            string sql = "select top 1 * from student order by NEWID()";
+            Log4netHelper.Info("SQL：" + sql);
             List<StudentModel> smList = DapperHelper<StudentModel>.Query(sql);
             return smList;
         }
