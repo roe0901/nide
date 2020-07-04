@@ -1,0 +1,11 @@
+
+＝＝＝＝＝＝＝＝＝＝                                   
+【日志级别】ERROR                                   
+【记录时间】2020-07-04 18:53:10,213                                   
+【线程编号】[10]                                   
+【执行时间】[207]毫秒                                   
+【出错文件】G:\project\myself\nidediary\WebApplication1\Common\log4netHelper.cs                                   
+【出错行号】19                                   
+【出错的类】logerror 属性[(null)]                                   
+【错误描述】1111                                   
+【错误详情】

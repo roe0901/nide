@@ -20,6 +20,8 @@ namespace WebApplication1.Controllers
     {
         public ActionResult Index()
         {
+            Log4netHelper.error("1111");
+            Log4netHelper.Info("1111");
             return View();
         }
 
