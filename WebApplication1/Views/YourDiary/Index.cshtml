@@ -1,0 +1,113 @@
+﻿
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Content/layui/layui.js"></script>
+    <script>
+        layui.use(['layer', 'laydate'], function () { //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer, laydate = layui.laydate;
+
+            //直接嵌套显示
+            laydate.render({
+                elem: '#test2'
+                , showBottom: false
+                , theme: 'grid'
+                , position: 'static'
+                , mark: {
+                    '0-08-26': '见面日'
+                    , '0-07-21': '生日' //每年12月31日
+                    , '0-09-01': '生日' //每个月10号
+                }
+                , ready: function (date) {
+                    var value = date.year + "-" + (date.month < 10 ? ("0" + date.month) : date.month) + "-" + (date.date < 10 ? ("0" + date.date) : date.date);
+                    $("#bqDate").html(value);
+                    getDiary(value, 1);
+                    getDiary(value, 2);
+                }
+                , change: function (value, date) { //监听日期被切换
+                    $("#bqDate").html(value);
+                    getDiary(value, 1);
+                    getDiary(value, 2);
+                }
+            });
+
+
+            function getDiary(timevalue, sex) {
+                $.ajax({
+                    type: "post",
+                    url: "/YourDiary/getDiary",
+                    data: { "times": timevalue, "type": sex },     // data参数是可选的，有多种写法，也可以直接在url参数拼接参数上去，例如这样：url:"getUser?id="+val,
+                    async: true,   // 异步，默认开启，也就是$.ajax后面的代码是不是跟$.ajx里面的代码一起执行
+                    dataType: "html",   // 返回浏览器的数据类型，指定是json格式，前端这里才可以解析json数据
+                    success: function (data) {
+                        if (data == "0") {
+                            if (sex == 1) {
+                                $("#diaryBoyContent").html("暂无日记");
+                                $("#diaryBoyTitle").html("暂无标题");
+                            }
+                            if (sex == 2) {
+                                $("#diaryGrilContent").html("暂无日记");
+                                $("#diaryGrilTitle").html("暂无标题");
+                            }
+                        } else {
+                            var obj = eval("(" + data + ")");
+                            if (sex == 1) {
+                                $("#diaryBoyContent").html(obj.diary.content);
+                                $("#diaryBoyTitle").html(obj.diary.title + "(" + obj.diary.content.length + "字)");
+                            }
+                            if (sex == 2) {
+                                $("#diaryGrilContent").html(obj.diary.content);
+                                $("#diaryGrilTitle").html(obj.diary.title + "(" + obj.diary.content.length + "字)");
+                            }
+                        }
+                    },
+                    error: function () {
+                        console.log("发生错误")
+                        alert("发生错误");
+                    },
+                    complete: function () {
+                        console.log("ajax请求完事，最终操作在这里完成")
+                    }
+                })
+
+            }
+        });
+    </script>
+    <style>
+    </style>
+</head>
+<body>
+    <blockquote class="layui-elem-quote" id="bqDate">请选择日期</blockquote>
+    <div class="layui-fluid layui-col-space10">
+        <div class="layui-col-md2 ">
+            <fieldset class="layui-elem-field" style="">
+                <legend>日期</legend>
+                <div id="test2"></div>
+            </fieldset>
+
+        </div>
+        <div class="layui-col-md4">
+            <fieldset class="layui-elem-field">
+                <legend id="diaryBoyTitle">男孩儿的标题</legend>
+                <div class="layui-field-box layui-bg-blue" id="diaryBoyContent" contenteditable="plaintext-only">
+                    男孩儿的内容
+                </div>
+            </fieldset>
+        </div>
+        <div class="layui-col-md4">
+            <fieldset class="layui-elem-field">
+                <legend id="diaryGrilTitle">女孩儿的标题</legend>
+                <div class="layui-field-box layui-bg-red" id="diaryGrilContent" contenteditable="plaintext-only">
+                    女孩儿的内容
+                </div>
+            </fieldset>
+        </div>
+
+    </div>
+</body>
+</html>
