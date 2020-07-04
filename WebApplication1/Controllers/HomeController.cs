@@ -18,11 +18,6 @@ namespace WebApplication1.Controllers
     {
         public ActionResult Index()
         {
-
-
-
-
-
             List<string> dateLs = new List<string>();
             List<string> dateIDLs = new List<string>();
 
@@ -69,17 +64,17 @@ namespace WebApplication1.Controllers
                 {
                     HttpGet("https://nideriji.cn/api/diary/" + obj.diaries[times] + "/", out result, type);
                     result = Unicode2String(result);
-                    dynamic obj2 = JsonConvert.DeserializeObject(result);
-                    result = obj2.diary.content;
+                    /*dynamic obj2 = JsonConvert.DeserializeObject(result);
+                    result = obj2.diary.content;*/
                 }else
                 {
-                    result = "暂无日记";
+                    result = "0";
                 }
 
             }
             else
             {
-                result = "暂无日记";
+                result = "0";
             }
 
             return result;
