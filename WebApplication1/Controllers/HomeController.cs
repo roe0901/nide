@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using BLL;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace WebApplication1.Controllers
     {
         public ActionResult Index()
         {
+            StudentBLL sBLL = new StudentBLL();
+            sBLL.GetList();
             return View();
         }
 

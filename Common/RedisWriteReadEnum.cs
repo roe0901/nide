@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BLL
+namespace Common
 {
-    public class Class1
-    {
-    }
+	public enum RedisWriteReadEnum
+	{
+		Write = 1,
+		Read
+	}
 }
