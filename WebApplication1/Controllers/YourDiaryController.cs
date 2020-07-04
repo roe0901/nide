@@ -39,14 +39,14 @@ namespace WebApplication1.Controllers
             int timesYear = Convert.ToDateTime(times).Year;
             int timesMonth = Convert.ToDateTime(times).Month;
             string result = "";
-            Common.Common.HttpGet("https://nideriji.cn/api/diary/simple_by_month/" + timesYear + "/" + timesMonth + "/", out result, type);
+            Common.CommonHelper.HttpGet("https://nideriji.cn/api/diary/simple_by_month/" + timesYear + "/" + timesMonth + "/", out result, type);
             dynamic obj = JsonConvert.DeserializeObject(result);
             if (obj.diaries != null || obj.diaries != "")
             {
                 if (obj.diaries[times] != null)
                 {
-                    Common.Common.HttpGet("https://nideriji.cn/api/diary/" + obj.diaries[times] + "/", out result, type);
-                    result = Common.Common.Unicode2String(result);
+                    Common.CommonHelper.HttpGet("https://nideriji.cn/api/diary/" + obj.diaries[times] + "/", out result, type);
+                    result = Common.CommonHelper.Unicode2String(result);
                     /*dynamic obj2 = JsonConvert.DeserializeObject(result);
                     result = obj2.diary.content;*/
                 }

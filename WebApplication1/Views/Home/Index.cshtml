@@ -9,9 +9,17 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Content/layui/layui.js"></script>
+    <script>
+        layui.use(['layer', 'laydate'], function () { //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer, laydate = layui.laydate;
+            $(function () {
+                alert(1);
+            })
+        });
+    </script>
 </head>
 <body>
-    <div>
-    </div>
 </body>
 </html>
