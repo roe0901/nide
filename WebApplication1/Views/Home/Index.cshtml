@@ -1,0 +1,78 @@
+﻿
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Content/layui/layui.js"></script>
+    <script>
+        layui.use(['layer', 'laydate'], function () { //独立版的layer无需执行这一句
+            var $ = layui.jquery, layer = layui.layer, laydate = layui.laydate;
+
+            //直接嵌套显示
+            laydate.render({
+                elem: '#test2'
+                , position: 'static'
+                , change: function (value, date) { //监听日期被切换
+                     $.ajax({
+                        type: "post",
+                        url: "/home/getDiary",
+                        data: { "times": value,"type":1 },     // data参数是可选的，有多种写法，也可以直接在url参数拼接参数上去，例如这样：url:"getUser?id="+val,
+                        async: true,   // 异步，默认开启，也就是$.ajax后面的代码是不是跟$.ajx里面的代码一起执行
+                        dataType: "html",   // 返回浏览器的数据类型，指定是json格式，前端这里才可以解析json数据
+                        success: function (data) {
+                            $("#diaryBoyDiv").html(data);
+                        },
+                        error: function () {
+                            console.log("发生错误")
+                            alert("发生错误");
+                        },
+                        complete: function () {
+                            console.log("ajax请求完事，最终操作在这里完成")
+                        }
+                     })
+
+                    $.ajax({
+                        type: "post",
+                        url: "/home/getDiary",
+                        data: { "times": value ,"type":2},     // data参数是可选的，有多种写法，也可以直接在url参数拼接参数上去，例如这样：url:"getUser?id="+val,
+                        async: true,   // 异步，默认开启，也就是$.ajax后面的代码是不是跟$.ajx里面的代码一起执行
+                        dataType: "html",   // 返回浏览器的数据类型，指定是json格式，前端这里才可以解析json数据
+                        success: function (data) {
+                            $("#diaryBoyGril").html(data);
+                        },
+                        error: function () {
+                            console.log("发生错误")
+                            alert("发生错误");
+                        },
+                        complete: function () {
+                            console.log("ajax请求完事，最终操作在这里完成")
+                        }
+                    })
+                }
+            });
+        });
+    </script>
+    <style>
+        .divdiv{
+            width:500px;
+            float:left;
+            border:1px solid red;
+            margin-left:20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="test2"></div>
+
+    <div contenteditable="plaintext-only" id="diaryBoyDiv" class="divdiv">
+
+    </div>
+    <div contenteditable="plaintext-only" id="diaryBoyGril" class="divdiv">
+
+    </div>
+</body>
+</html>
