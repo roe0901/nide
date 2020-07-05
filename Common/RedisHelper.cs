@@ -120,14 +120,6 @@ namespace Common
 
         #endregion 记录redis的连接日志
 
-
-        
-
-            public static bool KeyDelete(string key)
-        {
-            return Do(db => db.KeyDelete(key));
-        }
-
         #region String
 
         #region 同步方法
