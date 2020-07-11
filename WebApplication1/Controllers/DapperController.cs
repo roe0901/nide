@@ -26,7 +26,6 @@ namespace WebApplication1.Controllers
             TimeSpan ts = timer.Elapsed;
             Log4netHelper.Info("sql读取学生数据耗时：" + ts.TotalMilliseconds);
 
-            RedisHelper.KeyDelete("Students");
             //将数据写入redis
             for (int i = 0; i < smList.Count; i++)
             {
