@@ -9,6 +9,13 @@
     <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
     <script src="~/Content/layui/layui.js"></script>
     <script>
+
+        var boyOldCount = 0;
+        var boyNewCount = 0;
+        var grilOldCount = 0;
+        var grilNewCount = 0;
+        var timer;
+
         layui.use(['layer', 'laydate'], function () { //独立版的layer无需执行这一句
             var $ = layui.jquery, layer = layui.layer, laydate = layui.laydate;
 
@@ -28,15 +35,17 @@
                     $("#bqDate").html(value);
                     getDiary(value, 1);
                     getDiary(value, 2);
+                    closeLoop();
                 }
                 , change: function (value, date) { //监听日期被切换
                     $("#bqDate").html(value);
                     getDiary(value, 1);
                     getDiary(value, 2);
+                    closeLoop();
                 }
             });
 
-
+            //sex ：1男 2女
             function getDiary(timevalue, sex) {
                 $.ajax({
                     type: "post",
@@ -59,10 +68,14 @@
                             if (sex == 1) {
                                 $("#diaryBoyContent").html(obj.diary.content);
                                 $("#diaryBoyTitle").html(obj.diary.title + "(" + obj.diary.content.length + "字)");
+                                boyOldCount = boyNewCount;
+                                boyNewCount = obj.diary.content.length;
                             }
                             if (sex == 2) {
                                 $("#diaryGrilContent").html(obj.diary.content);
                                 $("#diaryGrilTitle").html(obj.diary.title + "(" + obj.diary.content.length + "字)");
+                                grilOldCount = grilNewCount;
+                                grilNewCount = obj.diary.content.length;
                             }
                         }
                     },
@@ -76,13 +89,61 @@
                 })
 
             }
+
+            function chromeNotify(title, content) {
+                if (window.Notification && Notification.permission !== "denied") {
+                    Notification.requestPermission(function (status) {
+                        var n = new Notification(title, { body: content });
+                    });
+                }
+            }
+
+            function Loop() {
+                var timevalue = $("#bqDate").html();
+                var sex = $(".rdoSex:checked").val();
+
+                getDiary(timevalue, sex);
+
+                if (boyNewCount != boyOldCount && sex==1) {
+                    chromeNotify("男孩儿日记有更新", "快来看看");
+                } else if (grilNewCount != grilOldCount && sex==2) {
+                    chromeNotify("女孩儿日记有更新", "快来看看");
+                }
+            }
+
+            function closeLoop() {
+                $("#btnStart").removeAttr("disabled");
+                $("#btnEnd").attr("disabled", true);
+                clearInterval(timer);
+            }
+
+            $(function () {
+                $("#btnStart").click(function () {
+                    var timerCount = $("#slTime").val();
+                    timer = setInterval(Loop, timerCount * 60000);
+                    $("#btnStart").attr("disabled", true);
+                    $("#btnEnd").removeAttr("disabled");
+                })
+
+                $("#btnEnd").click(function () {
+                    closeLoop();
+                })
+            })
         });
     </script>
     <style>
     </style>
 </head>
 <body>
-    <blockquote class="layui-elem-quote" id="bqDate">请选择日期</blockquote>
+    <blockquote class="layui-elem-quote">
+        <label id="bqDate">请选择日期</label>
+        <label>
+            <label><input type="radio" name="rdoSex" class="rdoSex" value="1" checked/>Yeroer</label>
+            <label><input type="radio" name="rdoSex" class="rdoSex" value="2"/>Verna</label>
+            <label>刷新时长：<select id="slTime"><option value="1">1</option><option value="5">5</option><option value="10">10</option></select></label>
+            <label><input type="button" id="btnStart" value="开始" /><input type="button" id="btnEnd" value="结束" disabled="disabled"/></label>
+        </label>
+    </blockquote>
     <div class="layui-fluid layui-col-space10">
         <div class="layui-col-md2 ">
             <fieldset class="layui-elem-field" style="">
