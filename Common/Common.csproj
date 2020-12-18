@@ -141,9 +141,13 @@
   <ItemGroup>
     <Compile Include="CommonHelper.cs" />
     <Compile Include="DapperHelper.cs" />
+    <Compile Include="IBaseService.cs" />
     <Compile Include="log4netHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RedisHelper.cs" />
+    <Compile Include="IUserService.cs" />
+    <Compile Include="BaseService.cs" />
+    <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
