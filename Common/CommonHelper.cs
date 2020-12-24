@@ -33,11 +33,13 @@ namespace Common
                 httpReq.Method = "GET";
                 if (Type == 1)
                 {
-                    httpReq.Headers.Add("auth", "token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJPaFNoZW5naHVvIiwidXNhZ2UiOiJsb2dpbiIsInVzZXJfaWQiOjkzMzE1MywiZXhwIjoxNjIzNjM0NzA5LjE4ODA4Nn0.jIhLug3GT77P5EqAdb_XKqImAZNqTzzIKbx_uS8g754");
+                   /* httpReq.Headers.Add("auth", "token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJPaFNoZW5naHVvIiwidXNhZ2UiOiJsb2dpbiIsInVzZXJfaWQiOjkzMzE1MywiZXhwIjoxNjA4Mjc4NjI5LjMyMTU4N30.4jApDIWDOk934Y73GDfGT3-peeMjZjZT58U5fKoNEDA");*/
+                    httpReq.Headers.Add("auth", "token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJPaFNoZW5naHVvIiwidXNhZ2UiOiJsb2dpbiIsInVzZXJfaWQiOjkzMzE1MywiZXhwIjoxNjIzODUzNTk0LjMyMjE2Mn0.hX3kwi9wWPNcrULJxrD6AwJ8KsmcUMioJl5Q8BkOOng");
                 }
                 else
                 {
-                    httpReq.Headers.Add("auth", "token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJPaFNoZW5naHVvIiwidXNhZ2UiOiJsb2dpbiIsInVzZXJfaWQiOjkzMzEyMiwiZXhwIjoxNjA4Mjk2ODk2LjIwNjQ2M30.UJI-tM9FrawpHimS4eCEfCwLrGXUZW4D5uI_oUf0mbw");
+                   /* httpReq.Headers.Add("auth", "token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJPaFNoZW5naHVvIiwidXNhZ2UiOiJsb2dpbiIsInVzZXJfaWQiOjkzMzEyMiwiZXhwIjoxNjA4Mjk2ODk2LjIwNjQ2M30.UJI-tM9FrawpHimS4eCEfCwLrGXUZW4D5uI_oUf0mbw");*/
+                    httpReq.Headers.Add("auth", "token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJPaFNoZW5naHVvIiwidXNhZ2UiOiJsb2dpbiIsInVzZXJfaWQiOjkzMzEyMiwiZXhwIjoxNjIzODUzMjg0LjAzMTUzMn0.05Vgfr4YfYmPocna-Ja8Zo_rbvzB3BZMGl3L9RebQ-4");
                 }
                 WebResponse webResponse = httpReq.GetResponse();
                 HttpWebResponse httpWebResponse = (HttpWebResponse)webResponse;
