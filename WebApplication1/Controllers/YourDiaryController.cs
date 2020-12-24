@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Common;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace WebApplication1.Controllers
         // GET: YourDiary
         public ActionResult Index()
         {
+            Log4netHelper.Info("ip:"+Request.UserHostAddress+";时间："+DateTime.Now);
             List<string> dateLs = new List<string>();
             List<string> dateIDLs = new List<string>();
 
